@@ -1,5 +1,5 @@
 import express from 'express';
-import { checkSymptoms } from '../controllers/conditionController';
+import { checkSymptoms } from '../controllers/conditionController.js';
 
 const router = express.Router();
 

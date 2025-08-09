@@ -1,7 +1,7 @@
 // Accepts symptoms, finds matching condtion(s), and returns dr.
 
-import { findConditionBySymptoms } from '../models/conditionModel';
-import { findDoctorBySpecialization } from '../models/doctorModel';
+import { findConditionBySymptoms } from '../models/conditionModel.js';
+import { findDoctorBySpecialization } from '../models/doctorModel.js';
 
 export const checkSymptoms = async (requestAnimationFrame, res) => {
     try {

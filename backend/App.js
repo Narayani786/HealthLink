@@ -1,15 +1,15 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import conditionRoute from './routes/conditionRoute';
-import doctorRoute from './routes/doctorRoute';
+import conditionRoutes from './routes/conditionRoutes.js';
+import doctorRoutes from './routes/doctorRoutes.js';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-app.use('/api/conditions', conditionRoute);
-app.use('/api/doctors', doctorRoute);
+app.use('/api/conditions', conditionRoutes);
+app.use('/api/doctors', doctorRoutes);
 
 app.get('/', (req, res) => {
     res.send('HealthLink Backend running');

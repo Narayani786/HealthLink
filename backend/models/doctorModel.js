@@ -1,6 +1,6 @@
 // DB function for doctors
 
-import db from './db';
+import db from './db.js';
 
 export const findDoctorBySpecialization = async (specialization) => {
     const sql = 'SELECT id, name, specialization, contact_no AS contact FROM doctors WHERE specialization = ?';
