@@ -1,8 +1,9 @@
 import expree from 'express';
-import { getConditionFromSymptoms } from '../controllers/symptomController';
+import { checkSymptoms } from '../controllers/conditionController';
+
 const router = express.Router();
 
 // POST /api/symptoms
-router.post('/', getConditionFromSymptoms);
+router.post('/check', checkSymptoms);
 
 export default router;
