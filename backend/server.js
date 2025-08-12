@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import conditionRoutes from './routes/conditionRoutes.js';
 import doctorRoutes from './routes/doctorRoutes.js';
@@ -6,6 +7,14 @@ import doctorRoutes from './routes/doctorRoutes.js';
 dotenv.config();
 
 const app = express();
+
+// enable cors for all req
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 app.use('/api/conditions', conditionRoutes);
