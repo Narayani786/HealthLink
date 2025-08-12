@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function SearchBar({ onSearch }) {
     const [query, setQuery] = useState('');
 
-    const handleSearch = (e) => {
+    const handleInputChange = (e) => {
         const value = e.target.value;
         setQuery(value);
         onSearch(value);  // send search query back to parent component
@@ -12,9 +12,9 @@ export default function SearchBar({ onSearch }) {
     return (
         <input 
         type='text'
-        placeholder="Search doctors..."
+        placeholder="Search by symptom, condition, specialization or doctor name..."
         value={query}
-        onChange={handleSearch}
+        onChange={handleInputChange}
         style={{
             padding: '8px',
             width: '100%',

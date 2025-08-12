@@ -5,6 +5,10 @@ export default function Home() {
         <div style={{ padding: '20px' }}>
             <h1>Welcome to HealthLink</h1>
             <p>Find the right doctor for your needs.</p>
+            
+            <Link to='/symptom-checker'>
+            <button>Check my symptoms</button>
+            </Link>
 
             {/* Link to dr. list */}
             <Link to="/doctors">

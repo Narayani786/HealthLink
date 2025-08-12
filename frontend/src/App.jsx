@@ -4,6 +4,7 @@ import Footer from './components/Footer.jsx';
 import Home from './pages/Home.jsx';
 import DoctorList from './pages/DoctorList.jsx';
 import DoctorDetails from './pages/DoctorDetails.jsx';
+import SymptomChecker from './pages/SymptomChecker.jsx';
 
 export default function App() {
     return (
@@ -11,7 +12,8 @@ export default function App() {
             <Navbar />
             <Routes>
                 <Route path='/'element={<Home />} />
-                <Route path='/doctors'element={<DoctorList />}/>
+                <Route path='/symptom-checker'element={<SymptomChecker />}/>
+                <Route path='/doctors/specialization'element={<DoctorList />}/>
                 <Route path='/doctors/:id'element={<DoctorDetails />}/>
             </Routes>
             <Footer />
