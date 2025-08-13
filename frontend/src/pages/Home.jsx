@@ -9,13 +9,6 @@ export default function Home() {
             <Link to='/symptom-checker'>
             <button>Check my symptoms</button>
             </Link>
-
-            {/* Link to dr. list */}
-            <Link to="/doctors">
-            <button style={{ padding: "10px 20px", marginTop: "20px" }}>
-                View Doctors
-            </button>
-            </Link>
         </div>
     );
 }

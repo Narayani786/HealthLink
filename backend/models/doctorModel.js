@@ -3,7 +3,8 @@
 import db from './db.js';
 
 export const findDoctorBySpecialization = async (specialization) => {
-    const sql = 'SELECT id, name, specialization, contact_no AS contact FROM doctors WHERE specialization = ?';
-    const [rows] = await db.query(sql, [specialization]);
+    const [rows] = await db.execute(
+    'SELECT * FROM doctors WHERE specialization = ?', [specialization]
+    );
     return rows;
 };

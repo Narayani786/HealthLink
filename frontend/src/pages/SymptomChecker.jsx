@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { checkSymptoms } from '../services/doctorServices.js';
 
 export default function SymptomChecker() {
     const [symptoms, setSymptoms] = useState('');
@@ -13,17 +14,10 @@ export default function SymptomChecker() {
         }
         try {
             setLoading(true);
-            const response = await fetch('/api/symptoms/check', {
-                method: 'POST',
-                headers: { 'Content-Type':'application/json' },
-                body: JSON.stringify({ symptoms })
-            });
-
-            const data = await response.json();
+            const data = await checkSymptoms(symptoms);
             setLoading(false);
 
-            if (response.ok && data.specialization) {
-                // Go to dr list page with spec in URL
+            if(data.specialization) {
                 navigate(`/doctors/${data.specialization}`);
             } else {
                 alert(data.message || 'No matching specialization found');

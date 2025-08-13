@@ -1,41 +1,21 @@
-// Accepts symptoms, finds matching condtion(s), and returns dr.
+ import { findConditionBySymptoms } from '../models/conditionModel.js';
 
-import { findConditionBySymptoms } from '../models/conditionModel.js';
-import { findDoctorBySpecialization } from '../models/doctorModel.js';
-
-export const checkSymptoms = async (requestAnimationFrame, res) => {
+ export const checkSymptoms = async (req, res) => {
     try {
-        const { symptoms } = requestAnimationFrame.body;
-        if( !symptoms ) return 
-        res.status(400).json({ message: 'Provide Symptoms (comma-seperated)'});
+        console.log('Incoming body:', req.body);
 
-        // Prepare symptoms array
-        const symptomsArray = symptoms.split(',').map(s =>
-            s.trim().toLowerCase()).filter(Boolean);
-            if( symptomsArray.length === 0) returnres.status(400).json({message: 'No valid symptoms found.'});
+        const { symptoms } = req.body;
 
-
-        // 1). Find conditions matching any symptom keyword
-        const conditions = await findConditionBySymptoms(symptomsArray);
-        if (conditions.length === 0) {
-            return res.status(404).json({message: 'No condition matched. Please consult a doctor.'});
+        const rows = await findConditionBySymptoms(symptoms);
+        console.log('Query results:', rows);
+        if(rows.length > 0) {
+            return res.json({ specialization: rows[0].specialization });
+        } else {
+            return res.status(404).json({ message: 'No matching specialization found' });
         }
-
-        // 2). Choose best match (1st row) and fetch dr. for its specialization
-        const matched = conditions[0];
-
-        const doctors = await findDoctorBySpecialization(matched.specialization);
-        return res.json({
-            matchedCondition: {
-                id: matched.id,
-                name: matched.condition_name,
-                specialization: matched.specialization,
-                keywords: matched.symptom_keywords
-            },
-            doctors
-        });
-    } catch (err) {
-        console.error('checkSymptoms error:', err);
-        res.status(500).json({ message: 'Server error' });
+    } catch (error) {
+        console.error('Error checking symptoms:', error);
+        return res.status(500).json({ message: 'Server error' });
     }
-};
+ };
+ 
