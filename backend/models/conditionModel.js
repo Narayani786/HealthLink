@@ -1,4 +1,4 @@
-import db from '../config/db.js';
+import db from './db.js';
 
 export const findConditionBySymptoms = async (symptoms) => {
   try {
