@@ -1,21 +1,20 @@
- import { findConditionBySymptoms } from '../models/conditionModel.js';
+import { findConditionBySymptoms } from '../models/conditionModel.js';
 
- export const checkSymptoms = async (req, res) => {
-    try {
-        console.log('Incoming body:', req.body);
+export const checkSymptoms = async (req, res) => {
+  try {
+    const { symptoms } = req.body;
 
-        const { symptoms } = req.body;
-
-        const rows = await findConditionBySymptoms(symptoms);
-        console.log('Query results:', rows);
-        if(rows.length > 0) {
-            return res.json({ specialization: rows[0].specialization });
-        } else {
-            return res.status(404).json({ message: 'No matching specialization found' });
-        }
-    } catch (error) {
-        console.error('Error checking symptoms:', error);
-        return res.status(500).json({ message: 'Server error' });
+    if (!symptoms || symptoms.length === 0) {
+      return res.status(400).json({ message: "Symptoms are required" });
     }
- };
- 
+
+    const conditions = await findConditionBySymptoms(symptoms);
+
+    console.log('DB results:', conditions);
+
+    return res.status(200).json(conditions);
+  } catch (err) {
+    console.error("Error in checkSymptoms:", err);
+    return res.status(500).json({ message: "Server error", error: err.message });
+  }
+};

@@ -1,10 +1,17 @@
-// symptom -> condition mapping stored in DB
+import db from '../config/db.js';
 
-import db from './db.js';
+export const findConditionBySymptoms = async (symptoms) => {
+  try {
 
-export const findConditionBySymptoms = async (symptom) => {
-    const [rows] = await db.execute(
-        'SELECT specialization FROM conditions WHERE symptoms LIKE ? LIMIT 1', [`%${symptom}`]
+    console.log('Searching in DB for:', symptoms);
+
+    const [rows] = await db.query(
+      "SELECT * FROM conditions WHERE symptoms LIKE ?",
+      [`%${symptoms}%`]
     );
     return rows;
+  } catch (err) {
+    console.error("Error in findConditionBySymptoms:", err);
+    throw err;
+  }
 };
