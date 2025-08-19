@@ -1,20 +1,27 @@
-import { findConditionBySymptoms } from '../models/conditionModel.js';
-
+import db from "../config/db.js";
+// checkSymptoms.js
 export const checkSymptoms = async (req, res) => {
   try {
-    const { symptoms } = req.body;
+    let { symptoms } = req.body;
 
-    if (!symptoms || symptoms.length === 0) {
-      return res.status(400).json({ message: "Symptoms are required" });
+    // Ensure symptoms is always an array
+    if (!Array.isArray(symptoms)) {
+      // if frontend sends comma-separated string
+      if (typeof symptoms === "string") {
+        symptoms = symptoms.split(",").map(s => s.trim());
+      } else {
+        return res.status(400).json({ error: "Symptoms must be an array or string" });
+      }
     }
 
-    const conditions = await findConditionBySymptoms(symptoms);
+    const [rows] = await db.query(
+      "SELECT * FROM conditions WHERE symptom IN (?)",
+      [symptoms]
+    );
 
-    console.log('DB results:', conditions);
-
-    return res.status(200).json(conditions);
+    res.json(rows);
   } catch (err) {
-    console.error("Error in checkSymptoms:", err);
-    return res.status(500).json({ message: "Server error", error: err.message });
+    console.error("Error checking symptoms:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 };

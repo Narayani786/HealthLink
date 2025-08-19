@@ -1,54 +1,31 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { checkSymptoms } from '../services/doctorServices.js';
+import { checkSymptoms } from '../services/doctorServices';
 
-export default function SymptomChecker() {
-    const [symptoms, setSymptoms] = useState('');
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+const SymptomChecker = () => {
+  const [symptoms, setSymptoms] = useState('');
+  const [result, setResult] = useState(null);
 
-    const handleCheck = async () => {
-        if (!symptoms.trim()) {
-            alert('Please enter your symptoms');
-            return;
-        }
-        try {
-            setLoading(true);
-            const data = await checkSymptoms(symptoms);
-            setLoading(false);
+  const handleCheck = async () => {
+    try {
+      const symptomsArray = symptoms.split(',').map(s => s.trim());
+      const data = await checkSymptoms(symptomsArray);
+      setResult(data.condition);
+    } catch (err) {
+      console.error('Error checking symptoms:', err);
+    }
+  };
 
-            if(data.specialization) {
-                navigate(`/doctors/${data.specialization}`);
-            } else {
-                alert(data.message || 'No matching specialization found');
-            }
-        } catch (error) {
-            console.error('Error checking symptoms:', error);
-            setLoading(false);
-            alert('Server error. Please try again later.');
-        }
-    };
+  return (
+    <div>
+      <input
+        value={symptoms}
+        onChange={(e) => setSymptoms(e.target.value)}
+        placeholder="Enter your symptoms"
+      />
+      <button onClick={handleCheck}>Check</button>
+      {result && <div>Condition: {result[0]?.name}</div>}
+    </div>
+  );
+};
 
-    return (
-        <div style={{ padding: '20px' }}>
-            <h2>Symptom Checker</h2>
-            <textarea
-            rows='4'
-            style={{ width: '100%', padding: '8px' }}
-            value={symptoms}
-            onChange={(e) =>
-                setSymptoms(e.target.value)}
-                placeholder='Describe your symptoms...'
-            />
-            <br/>
-            <button onClick={handleCheck}>
-                {loading ? 'Checking...' : 'Find Specialist'}
-            </button>
-        </div>
-    );
-}
-
-
-
-
-
+export default SymptomChecker;

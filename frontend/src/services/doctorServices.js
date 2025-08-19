@@ -25,6 +25,11 @@ export const getConditions = async () => {
 
 
 export const checkSymptoms = async (symptoms) => {
+  try {
     const res = await axios.post(`${API_URL}/conditions/check`, { symptoms });
     return res.data;
+  } catch (error) {
+    console.error("Error in checkSymptoms service:", error);
+    throw error;
+  }
 };
