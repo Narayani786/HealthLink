@@ -1,4 +1,4 @@
-import { findDoctorBySpecialization } from '../models/doctorModel.js';
+import { findDoctorBySpecialization } from '../models/doctorModel';
 
 export async function getDoctorsBySpecialization(req, res) {
   try {
@@ -14,13 +14,3 @@ export async function getDoctorsBySpecialization(req, res) {
   }
 }
 
-// (optional) list all doctors
-export async function getDoctors(req, res) {
-  try {
-    const [rows] = await pool.query('SELECT id, name, specialization, contact_no FROM doctors');
-    return res.json(rows);
-  } catch (err) {
-    console.error('getDoctors error:', err);
-    return res.status(500).json({ message: 'server error' });
-  }
-}

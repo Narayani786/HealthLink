@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+
  export default function DoctorCard({ doctor }) {
     return (
         <div style={{ border: '1px solid #ddd', padding: '10px', margin: '10px' }}>
@@ -8,5 +9,4 @@ import { Link } from 'react-router-dom';
             <Link to={`/doctors/${doctor.id}`}>View Details</Link>
         </div>
     );
-
 }

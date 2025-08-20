@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { checkSymptoms } from '../services/doctorServices';
+import { checkSymptoms } from '../services/symptomService';
 
 export default function SymptomChecker() {
   const [symptoms, setSymptoms] = useState('');
@@ -10,7 +10,7 @@ export default function SymptomChecker() {
     if (!symptoms.trim()) return alert('Please enter your symptoms');
     try {
       const data = await checkSymptoms(symptoms); // we send a STRING
-      navigate(`/doctors/${data.specialization}`); // go to doctor list by specialization
+      navigate(`/doctors-list/${data.specialization}`); // go to doctor list by specialization
     } catch (err) {
       console.error('Error checking symptoms:', err);
       alert('No match or server error.');

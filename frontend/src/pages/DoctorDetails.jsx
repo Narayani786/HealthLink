@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
-import { getDoctorById } from '../services/doctorServices.js';
+import { getDoctorById } from '../services/doctorService';
 
 export default function DoctorDetails() {
     const { id } = useParams();

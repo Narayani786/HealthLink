@@ -10,6 +10,7 @@ export default function SearchBar({ onSearch }) {
     };
 
     return (
+        <div style={{ display: 'flex', gap: '10px' }}>
         <input 
         type='text'
         placeholder="Search by symptom, condition, specialization or doctor name..."
@@ -24,5 +25,10 @@ export default function SearchBar({ onSearch }) {
             borderRadius: '4px',
         }}
         />
+        <button onClick={() => onSearch(query)}
+            style={{ padding: '8px 12px' }}>
+                Search
+                </button>
+    </div>
     );
 }

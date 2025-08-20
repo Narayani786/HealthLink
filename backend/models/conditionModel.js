@@ -1,4 +1,4 @@
-import { pool } from '../config/db.js';
+import { pool } from '../config/db';
 
 export async function findConditionBySymptoms(symptoms) {
   // Accept a plain string from the frontend
