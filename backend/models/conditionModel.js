@@ -1,17 +1,11 @@
-import db from '../config/db.js';
+import { pool } from '../config/db.js';
 
-export const findConditionBySymptoms = async (symptoms) => {
-  try {
-
-    console.log('Searching in DB for:', symptoms);
-
-    const [rows] = await db.query(
-      "SELECT * FROM conditions WHERE symptoms LIKE ?",
-      [`%${symptoms}%`]
-    );
-    return rows;
-  } catch (err) {
-    console.error("Error in findConditionBySymptoms:", err);
-    throw err;
-  }
-};
+export async function findConditionBySymptoms(symptoms) {
+  // Accept a plain string from the frontend
+  const term = `%${String(symptoms || '').trim()}%`;
+  const [rows] = await pool.query(
+    'SELECT id, condition_name, specialization FROM conditions WHERE symptom_keywords LIKE ?',
+    [term]
+  );
+  return rows;
+}

@@ -1,27 +1,26 @@
-import db from "../config/db.js";
-// checkSymptoms.js
-export const checkSymptoms = async (req, res) => {
-  try {
-    let { symptoms } = req.body;
+import { findConditionBySymptoms } from '../models/conditionModel.js';
 
-    // Ensure symptoms is always an array
-    if (!Array.isArray(symptoms)) {
-      // if frontend sends comma-separated string
-      if (typeof symptoms === "string") {
-        symptoms = symptoms.split(",").map(s => s.trim());
-      } else {
-        return res.status(400).json({ error: "Symptoms must be an array or string" });
-      }
+export async function checkSymptoms(req, res) {
+  try {
+    const { symptoms } = req.body; // expecting a string like "fever"
+    if (!symptoms || !String(symptoms).trim()) {
+      return res.status(400).json({ message: 'symptoms is required' });
     }
 
-    const [rows] = await db.query(
-      "SELECT * FROM conditions WHERE symptom IN (?)",
-      [symptoms]
-    );
+    const rows = await findConditionBySymptoms(symptoms);
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'No matching condition' });
+    }
 
-    res.json(rows);
+    // choose the first match for now
+    const top = rows[0];
+    return res.json({
+      condition: top.condition_name,
+      specialization: top.specialization,
+      matches: rows
+    });
   } catch (err) {
-    console.error("Error checking symptoms:", err);
-    res.status(500).json({ error: "Internal server error" });
+    console.error('checkSymptoms error:', err);
+    return res.status(500).json({ message: 'server error' });
   }
-};
+}

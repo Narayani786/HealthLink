@@ -1,8 +1,6 @@
 import express from 'express';
-import { getDoctors } from '../controllers/doctorController.js';
-
+import { getDoctorsBySpecialization } from '../controllers/doctorController.js';
 const router = express.Router();
 
-router.get('/:specialization', getDoctors);
-
+router.get('/:specialization', getDoctorsBySpecialization); // GET /api/doctors/Cardiologist
 export default router;

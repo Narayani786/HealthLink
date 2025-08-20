@@ -24,12 +24,13 @@ export const getConditions = async () => {
 };
 
 
+
 export const checkSymptoms = async (symptoms) => {
-  try {
-    const res = await axios.post(`${API_URL}/conditions/check`, { symptoms });
-    return res.data;
-  } catch (error) {
-    console.error("Error in checkSymptoms service:", error);
-    throw error;
-  }
+  const res = await axios.post(`${API_URL}/conditions/check`, { symptoms });
+  return res.data;
+};
+
+export const getDoctorsBySpecialization = async (spec) => {
+  const res = await axios.get(`${API_URL}/doctors/${encodeURIComponent(spec)}`);
+  return res.data;
 };

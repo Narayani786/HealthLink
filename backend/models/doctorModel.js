@@ -1,10 +1,9 @@
-// DB function for doctors
+import { pool } from '../config/db.js';
 
-import db from '../config/db.js';
-
-export const findDoctorBySpecialization = async (specialization) => {
-    const [rows] = await db.query(
-        'SELECT * FROM doctors WHERE specialization = ?', [specialization]
-    );
-    return rows;
-};
+export async function findDoctorBySpecialization(specialization) {
+  const [rows] = await pool.query(
+    'SELECT id, name, specialization, contact_no FROM doctors WHERE specialization = ?',
+    [specialization]
+  );
+  return rows;
+}

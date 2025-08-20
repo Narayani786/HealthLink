@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { checkSymptoms } from '../services/doctorServices';
 
-const SymptomChecker = () => {
+export default function SymptomChecker() {
   const [symptoms, setSymptoms] = useState('');
-  const [result, setResult] = useState(null);
+  const navigate = useNavigate();
 
   const handleCheck = async () => {
+    if (!symptoms.trim()) return alert('Please enter your symptoms');
     try {
-      const symptomsArray = symptoms.split(',').map(s => s.trim());
-      const data = await checkSymptoms(symptomsArray);
-      setResult(data.condition);
+      const data = await checkSymptoms(symptoms); // we send a STRING
+      navigate(`/doctors/${data.specialization}`); // go to doctor list by specialization
     } catch (err) {
       console.error('Error checking symptoms:', err);
+      alert('No match or server error.');
     }
   };
 
   return (
     <div>
+      <h2>Symptom Checker</h2>
       <input
         value={symptoms}
         onChange={(e) => setSymptoms(e.target.value)}
-        placeholder="Enter your symptoms"
+        placeholder="e.g. fever, headache"
       />
       <button onClick={handleCheck}>Check</button>
-      {result && <div>Condition: {result[0]?.name}</div>}
     </div>
   );
-};
-
-export default SymptomChecker;
+}
