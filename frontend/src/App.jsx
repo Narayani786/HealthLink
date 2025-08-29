@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import DoctorList from './pages/DoctorList';
-import DoctorDetails from './pages/DoctorDetails';
-import SymptomChecker from './pages/SymptomChecker';
+import Navbar from './components/Navbar.jsx';
+import Footer from './components/Footer.jsx';
+import Home from './pages/Home.jsx';
+import DoctorList from './pages/DoctorList.jsx';
+import DoctorDetails from './pages/DoctorDetails.jsx';
+import SymptomChecker from './pages/SymptomChecker.jsx';
 
 export default function App() {
     return (

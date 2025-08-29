@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import conditionRoutes from './routes/conditionRoutes';
-import doctorRoutes from './routes/doctorRoutes';
+import conditionRoutes from './routes/conditionRoutes.js';
+import doctorRoutes from './routes/doctorRoutes.js';
 
 dotenv.config();
 const app = express();

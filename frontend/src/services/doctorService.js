@@ -4,7 +4,7 @@ import { API_URL } from '../config';
 
 // get dr by spec
 export const getDoctorsBySpecialization = async (specialization) => {
-  const res = await axios.get(`${API_URL}/doctors?specialization=${specialization}`
+  const res = await axios.get(`${API_URL}/doctors/${specialization}`
   );
   return res.data;
 }

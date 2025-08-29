@@ -1,4 +1,4 @@
-import { findDoctorBySpecialization } from '../models/doctorModel';
+import { findDoctorBySpecialization } from '../models/doctorModel.js';
 
 export async function getDoctorsBySpecialization(req, res) {
   try {

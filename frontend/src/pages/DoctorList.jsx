@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getDoctorsBySpecialization } from "../services/doctorService";
-import SearchBar from "../components/SearchBar"; // ✅ Import SearchBar
+import { getDoctorsBySpecialization } from "../services/doctorService.js";
 
 const DoctorList = () => {
   const { specialization } = useParams();
@@ -33,21 +32,13 @@ const DoctorList = () => {
     return <p>No doctors found for {specialization}</p>;
   }
 
-  const handleSearch = (query) => {
-    const result = doctors.filter(
-      (doc) =>
-        doc.name.toLowerCase().includes(query.toLowerCase()) ||
-        doc.specialization.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredDoctors(result);
-  };
-
   return (
     <div>
       <h2>Doctors specialized in {specialization}</h2>
 
-      {/* ✅ Search bar */}
-      <SearchBar onSearch={handleSearch} />
+      <p style={{ marginTop: "10px", color: "gray", fontSize: "14px" }}>
+        Click on a doctor's name to view their full details
+      </p>
 
       <ul>
         {filteredDoctors.map((doc) => (

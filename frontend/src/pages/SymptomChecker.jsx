@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { checkSymptoms } from '../services/symptomService';
+import { checkSymptoms } from '../services/symptomService.js';
 
 export default function SymptomChecker() {
   const [symptoms, setSymptoms] = useState('');

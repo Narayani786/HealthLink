@@ -1,4 +1,4 @@
-import { findConditionBySymptoms } from '../models/conditionModel';
+import { findConditionBySymptoms } from '../models/conditionModel.js';
 
 export async function checkSymptoms(req, res) {
   try {
