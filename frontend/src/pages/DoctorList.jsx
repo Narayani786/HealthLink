@@ -44,7 +44,7 @@ const DoctorList = () => {
         {filteredDoctors.map((doc) => (
           <li
             key={doc.id}
-            onClick={() => navigate(`/doctor/${doc.id}`)} // ✅ Navigate to doctor details
+            onClick={() => navigate(`/doctors/${doc.id}`)} // ✅ Navigate to doctor details
             style={{ cursor: "pointer", margin: "10px 0" }}
           >
             <strong>{doc.name}</strong> - {doc.specialization}
