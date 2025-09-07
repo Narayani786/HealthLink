@@ -10,7 +10,7 @@ export default function SymptomChecker() {
     if (!symptoms.trim()) return alert('Please enter your symptoms');
     try {
       const data = await checkSymptoms(symptoms); // we send a STRING
-      navigate(`/doctors-list/${data.specialization}`); // go to doctor list by specialization
+      navigate(`/doctors/specialization/${data.specialization}`); // go to doctor list by specialization
     } catch (err) {
       console.error('Error checking symptoms:', err);
       alert('No match or server error.');

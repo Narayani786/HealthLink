@@ -12,7 +12,8 @@ app.use(express.json());
 
 app.use('/api', conditionRoutes);
 
-/*app.get('/api/doctors/:specialization', (req, res) => {
+/*
+app.get('/api/doctors/:specialization', (req, res) => {
     const specialization = req.params.specialization;
     de.query(
         "SELECT * FROM doctors WHERE specialization = ?",
@@ -37,7 +38,9 @@ app.get('/api/doctors/:id', (req, res) => {
             res.json(results[0]);
         }
     );
-});*/
+});
+*/
+
 
 app.get('/api/doctors/:specialization', doctorRoutes);
 app.get('/api/doctors/:id', doctorRoutes);

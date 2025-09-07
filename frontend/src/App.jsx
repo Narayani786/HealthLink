@@ -13,8 +13,8 @@ export default function App() {
             <Routes>
                 <Route path='/'element={<Home />} />
                 <Route path='/symptom-checker'element={<SymptomChecker />}/>
-                <Route path='/doctors-list/:specialization'element={<DoctorList />}/>
-                <Route path='/doctors/:id'element={<DoctorDetails />}/>
+                <Route path='/doctors/specialization/:specialization'element={<DoctorList />}/>
+                <Route path='/doctors/id/:id'element={<DoctorDetails />}/>
             </Routes>
             <Footer />
         </Router>

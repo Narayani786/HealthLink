@@ -3,8 +3,8 @@ import { getDoctorsBySpecialization, getDoctorById } from '../controllers/doctor
 
 const router = express.Router();
 
-router.get('/doctors/:specialization', getDoctorsBySpecialization); // GET /api/doctors/Cardiologist
-router.get('/doctors/:id', getDoctorById);
+router.get('/doctors/specialization/:specialization', getDoctorsBySpecialization); // GET /api/doctors/Cardiologist
+router.get('/doctors/id/:id', getDoctorById);
 
 
 export default router;
