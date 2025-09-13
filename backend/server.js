@@ -12,38 +12,8 @@ app.use(express.json());
 
 app.use('/api', conditionRoutes);
 
-/*
-app.get('/api/doctors/:specialization', (req, res) => {
-    const specialization = req.params.specialization;
-    de.query(
-        "SELECT * FROM doctors WHERE specialization = ?",
-        [specialization],
-        (err, results) => {
-            if(err) return res.status(500).json(err);
-            if(results.length === 0) return
-            res.status(404).json({ msg: 'No doctors found'});
-            res.json(results);
-        }
-    );
-});
-
-
-app.get('/api/doctors/:id', (req, res) => {
-    const id = req.params.id;
-    db.query(
-        "SELECT * FROM doctors WHERE id = ?", [id], (err, results) => {
-            if(err) return res.status(500).json(err);
-            if(results.length === 0) return 
-            res.status(404).json({ msg: 'Doctor not found' });
-            res.json(results[0]);
-        }
-    );
-});
-*/
-
-
-app.get('/api/doctors/:specialization', doctorRoutes);
-app.get('/api/doctors/:id', doctorRoutes);
+app.use('/api/doctors', doctorRoutes);
+//app.use('/api/doctors/:id', doctorRoutes);
 
 app.get('/', (req, res) => res.send('HealthLink backend running'));
 
